@@ -6,14 +6,13 @@ const Success = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Optionally: Refresh user data
-    axios.get('/api/users/me').then((res) => {
-      
+    axios.get('/api/users/me').then(() => {
       setTimeout(() => {
-        navigate('/resources'); // 👈 Go to resource page
+        navigate('/resources');
       }, 2000);
     });
-  }, []);
+  }, [navigate]);
+  
 
   return (
     <div className="text-center mt-10">

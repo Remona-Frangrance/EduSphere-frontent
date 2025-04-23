@@ -1,5 +1,9 @@
 import React from 'react';
-import { Container, Grid, Typography, Link, Box } from '@mui/material';
+import { Container,  Typography, Link, Box } from '@mui/material';
+import { Grid as MuiGrid } from '@mui/material';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const Grid = MuiGrid as unknown as React.FC<any>;
 
 export const Footer: React.FC = () => {
   const footerSections = {

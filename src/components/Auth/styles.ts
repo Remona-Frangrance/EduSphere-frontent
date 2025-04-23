@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { Box, Paper } from '@mui/material';
+import { Box } from '@mui/material';
 
 export const AuthContainer = styled(Box)({
   minHeight: '100vh',
