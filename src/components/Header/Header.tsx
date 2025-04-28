@@ -68,10 +68,10 @@ console.log('User:', userEmail);
       <AppBar position="fixed" sx={{ backgroundColor: '#fff', color: '#333' }}>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           {/* Logo */}
-          <div style={{ fontWeight: 'bold', fontSize: '1.5rem', cursor: 'pointer' }}>
+          <div style={{ fontWeight: 'bold', fontSize: '1.5rem', cursor: 'pointer', paddingBottom:'10px' }}>
             <Link to="/" style={{ textDecoration: 'none', color: '#333' }}>
             <LogoComponent />
-                          Edu<span style={{ color: '#1976d2' }}>Hub</span>
+                          Edu<span style={{ color: '#1976d2' }}>Sphere</span>
             </Link>
           </div>
 

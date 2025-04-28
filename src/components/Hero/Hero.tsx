@@ -58,6 +58,7 @@ const Hero: React.FC = () => {
               size="large"
               className="cta-button"
               sx={{ backgroundColor: '#1A237E' }}
+              
             >
               Get Started
             </Button>

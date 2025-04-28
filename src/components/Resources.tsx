@@ -7,7 +7,7 @@ import {
   CardContent,
   Button,
   Alert,
-  Skeleton,
+  CircularProgress,
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -18,16 +18,23 @@ import { Grid as MuiGrid } from '@mui/material';
 
 const Grid = MuiGrid as unknown as React.FC<any>;
 
-
 const ResourceCard = styled(Card)(() => ({
   borderRadius: '16px',
   background: 'linear-gradient(145deg, #ffffff, #f3f4f6)',
-  boxShadow: '8px 8px 20px #d1d9e6, -8px -8px 20px #ffffff',
+  boxShadow: '8px 8px 20px rgba(0, 0, 0, 0.1), -8px -8px 20px rgba(255, 255, 255, 0.7)',
   transition: '0.3s',
+  padding: '1.5rem',
   '&:hover': {
     transform: 'scale(1.05)',
-    boxShadow: '12px 12px 24px #cfd8dc, -12px -12px 24px #ffffff',
+    boxShadow: '12px 12px 24px rgba(0, 0, 0, 0.2), -12px -12px 24px rgba(255, 255, 255, 0.9)',
   },
+}));
+
+const LoaderWrapper = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100vh',
 }));
 
 const ResourcesPage: React.FC = () => {
@@ -74,31 +81,25 @@ const ResourcesPage: React.FC = () => {
 
   return (
     <Box sx={{ padding: '2rem', marginTop: '4rem', backgroundColor: '#F9FAFB' }}>
-           <Header />
+      <Header />
       <Typography variant="h4" textAlign="center" fontWeight="bold" gutterBottom sx={{ color: '#4ECDC4' }}>
         Subject Resources
       </Typography>
 
       {isLoading ? (
-        <Grid container spacing={3}>
-          {[...Array(3)].map((_, idx) => (
-            <Grid item xs={12} sm={6} md={4} key={idx}>
-              <Skeleton variant="rectangular" height={200} />
-              <Skeleton />
-              <Skeleton width="60%" />
-            </Grid>
-          ))}
-        </Grid>
+        <LoaderWrapper>
+          <CircularProgress />
+        </LoaderWrapper>
       ) : error ? (
         <Alert severity="error">Failed to load resources</Alert>
       ) : (
-        <Grid container spacing={3} justifyContent="center">
+        <Grid container spacing={4} justifyContent="center">
           {resources.length ? (
             resources.map((res) => (
               <Grid item xs={12} sm={6} md={4} key={res._id}>
                 <ResourceCard>
                   <CardContent>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color: '#333' }}>
                       {res.type === 'video' ? '🎥' : '📄'} {res.title}
                     </Typography>
 
@@ -125,13 +126,7 @@ const ResourcesPage: React.FC = () => {
                               title={res.title}
                               style={{ border: '1px solid #ccc', borderRadius: '6px' }}
                             />
-                            <Button
-                              href={res.url}
-                              target="_blank"
-                              download
-                              size="small"
-                              sx={{ mt: 1 }}
-                            >
+                            <Button href={res.url} target="_blank" download size="small" sx={{ mt: 1 }}>
                               Download PDF
                             </Button>
                           </Box>
@@ -142,18 +137,10 @@ const ResourcesPage: React.FC = () => {
                         <Typography variant="body2" color="text.secondary">
                           🔒 Locked. Subscribe to access.
                         </Typography>
-                        <Button
-                          onClick={() => handleSubscribe('subject')}
-                          variant="contained"
-                          sx={{ mt: 1 }}
-                        >
+                        <Button onClick={() => handleSubscribe('subject')} variant="contained" sx={{ mt: 1 }}>
                           Unlock this Subject
                         </Button>
-                        <Button
-                          onClick={() => handleSubscribe('standard')}
-                          variant="outlined"
-                          sx={{ mt: 1 }}
-                        >
+                        <Button onClick={() => handleSubscribe('standard')} variant="outlined" sx={{ mt: 1 }}>
                           Unlock Entire Standard
                         </Button>
                       </Box>

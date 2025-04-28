@@ -1,53 +1,60 @@
 import React from 'react';
-import { Container,  Typography, Link, Box } from '@mui/material';
-import { Grid as MuiGrid } from '@mui/material';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Grid = MuiGrid as unknown as React.FC<any>;
+import { Container, Typography, Link, Box, Stack, useMediaQuery, useTheme } from '@mui/material';
 
 export const Footer: React.FC = () => {
-  const footerSections = {
-    standards: {
-      title: 'Standards',
-      links: ['CBSE', 'ICSE', 'State Board'],
-    },
-    subjects: {
-      title: 'Subjects',
-      links: ['Mathematics', 'Science', 'English', 'Social Studies'],
-    },
-    about: {
-      title: 'About Us',
-      links: ['Our Story', 'Contact', 'Careers', 'Privacy Policy'],
-    },
-  };
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // sm = 600px
+
+  const footerLinks = [
+    'CBSE',
+    'ICSE',
+    'State Board',
+    'Mathematics',
+    'Science',
+    'English',
+    'Social Studies',
+    'Our Story',
+    'Contact',
+    'Careers',
+    'Privacy Policy',
+  ];
 
   return (
-    <Box sx={{ bgcolor: '#1A237E', color: 'white', py: 6, mt: 8 }}>
+    <Box sx={{ bgcolor: '#1A237E', color: 'white', py: 4, mt: 8 }}>
       <Container maxWidth="lg">
-        <Grid container spacing={4} justifyContent="space-between">
-          {Object.entries(footerSections).map(([key, section]) => (
-            <Grid item xs={12} sm={6} md={4} key={key}>
-              <Typography variant="h6" gutterBottom sx={{ color: '#4ECDC4' }}>
-                {section.title}
-              </Typography>
-              {section.links.map((link) => (
-                <Box key={link} sx={{ mb: 1 }}>
-                  <Link
-                    href="#"
-                    color="inherit"
-                    sx={{
-                      textDecoration: 'none',
-                      '&:hover': { textDecoration: 'underline' },
-                    }}
-                  >
-                    {link}
-                  </Link>
-                </Box>
-              ))}
-            </Grid>
+        {/* Footer Links */}
+        <Stack
+          direction={isMobile ? 'column' : 'row'}
+          spacing={2}
+          justifyContent={isMobile ? 'flex-start' : 'center'}
+          alignItems={isMobile ? 'flex-start' : 'center'}
+          sx={{ textAlign: isMobile ? 'left' : 'center' }}
+        >
+          {footerLinks.map((link) => (
+            <Link
+              key={link}
+              href="#"
+              color="inherit"
+              underline="none"
+              sx={{
+                fontSize: '14px',
+                '&:hover': { textDecoration: 'underline' },
+              }}
+            >
+              {link}
+            </Link>
           ))}
-        </Grid>
-        <Typography align="center" sx={{ mt: 4 }}>
+        </Stack>
+
+        {/* Copyright */}
+        <Typography
+          align="center"
+          sx={{
+            mt: 3,
+            fontSize: '13px',
+            color: 'white',
+          }}
+        >
           © {new Date().getFullYear()} EduHub. All rights reserved.
         </Typography>
       </Container>

@@ -14,7 +14,6 @@ import { useLoginMutation } from '../../services/authApi';
 import { setToken } from '../../services/authSlice';
 import { useDispatch } from 'react-redux';
 
-
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -25,7 +24,6 @@ export const Login: React.FC = () => {
   const handleLogin = async () => {
     try {
       const res = await login({ email, password }).unwrap();
-      // Optionally store token: localStorage.setItem("token", res.token);
       dispatch(setToken({ token: res.token, user: res }));
       navigate('/');
     } catch (err) {
@@ -36,18 +34,70 @@ export const Login: React.FC = () => {
   return (
     <AuthContainer>
       <ImageSection>
-        <img src="/images/undraw_road_to_knowledge_m8s0.svg" alt="Learning Illustration" className="hero-image" />
-        <Typography variant="h2" component="h1" sx={{ color: '#6C63FF', mb: 1, pt: 3, fontFamily: '"Source Serif Pro", "Noto Serif", serif', fontWeight: 400, fontSize: '36px', lineHeight: '40px' }}>
+        <img
+          src="/images/undraw_road_to_knowledge_m8s0.svg"
+          alt="Learning Illustration"
+          className="hero-image"
+          style={{ maxWidth: '100%', height: 'auto' }}
+        />
+        <Typography
+          variant="h2"
+          component="h1"
+          sx={{
+            color: '#6C63FF',
+            mb: 1,
+            pt: 3,
+            fontFamily: '"Source Serif Pro", "Noto Serif", serif',
+            fontWeight: 400,
+            fontSize: { xs: '28px', sm: '32px', md: '36px' },
+            lineHeight: '40px',
+            textAlign: 'center',
+          }}
+        >
           Join EduHub
         </Typography>
-        <Typography variant="h4" sx={{ color: '#6C63FF', mb: 2 }}>and learn with us</Typography>
-        <Typography variant="h6" sx={{ color: 'black' }}>Log in to get started!</Typography>
+        <Typography
+          variant="h4"
+          sx={{
+            color: '#6C63FF',
+            mb: 2,
+            fontSize: { xs: '20px', sm: '24px' },
+            textAlign: 'center',
+          }}
+        >
+          and learn with us
+        </Typography>
+        <Typography
+          variant="h6"
+          sx={{
+            color: 'black',
+            textAlign: 'center',
+            fontSize: { xs: '16px', sm: '18px' },
+          }}
+        >
+          Log in to get started!
+        </Typography>
       </ImageSection>
 
       <LoginSection>
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <AuthCard>
-            <Typography variant="h4" component="h1" gutterBottom sx={{ fontFamily: '"Source Serif Pro", "Noto Serif", serif', fontWeight: 400, fontSize: '36px', lineHeight: '40px' }}>
+            <Typography
+              variant="h4"
+              component="h1"
+              gutterBottom
+              sx={{
+                fontFamily: '"Source Serif Pro", "Noto Serif", serif',
+                fontWeight: 400,
+                fontSize: { xs: '28px', sm: '32px', md: '36px' },
+                lineHeight: '40px',
+                textAlign: 'center',
+              }}
+            >
               Log in
             </Typography>
 
@@ -88,14 +138,22 @@ export const Login: React.FC = () => {
                 size="large"
                 onClick={handleLogin}
                 disabled={isLoading}
-                sx={{ backgroundColor: '#6C63FF', color: 'white', '&:hover': { backgroundColor: '#6C63FF' } }}
+                sx={{
+                  backgroundColor: '#6C63FF',
+                  color: 'white',
+                  '&:hover': { backgroundColor: '#5b54e6' },
+                  mt: 2,
+                }}
               >
                 {isLoading ? 'Logging in...' : 'Log in'}
               </Button>
             </AuthForm>
 
             <Box sx={{ mt: 2, textAlign: 'center' }}>
-              <Typography variant="body2" sx={{ color: 'black', fontWeight: 400, fontSize: '15px' }}>
+              <Typography
+                variant="body2"
+                sx={{ color: 'black', fontWeight: 400, fontSize: '15px' }}
+              >
                 Don't have an account?{' '}
                 <Link href="/signup" underline="hover">
                   Sign up
@@ -108,4 +166,3 @@ export const Login: React.FC = () => {
     </AuthContainer>
   );
 };
-
